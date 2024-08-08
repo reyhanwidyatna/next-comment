@@ -7,7 +7,6 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "primeicons/primeicons.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from '@/components/ui/navbar';
 
 export const metadata = {
   title: "Next Comment App",
@@ -19,7 +18,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="container-fluid w-full h-screen flex flex-col m-auto p-0">
         <CommentsProvider>
-          <Navbar />
           {children}
         </CommentsProvider>
       </body>

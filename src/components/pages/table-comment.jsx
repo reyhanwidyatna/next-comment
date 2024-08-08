@@ -5,8 +5,11 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import Link from 'next/link';
 import { useComments } from '@/context/commentContext';
+import CustomNavbar from './custom-navbar';
+import useAuthRedirect from '@/hooks/authRedirect';
 
 const CommentsTable = ({ data }) => {
+  useAuthRedirect();
   const {comments, setComments, removeComment} = useComments();
   const [stateComments, setStateComments] = useState(comments || data);
 
@@ -100,4 +103,4 @@ const CommentsTable = ({ data }) => {
   );
 }
 
-export default CommentsTable;
+export default CustomNavbar(CommentsTable);

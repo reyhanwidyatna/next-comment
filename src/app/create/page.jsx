@@ -4,8 +4,11 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { validateEmail, validateField } from '@/utils/validators';
 import { useComments } from '@/context/commentContext';
+import CustomNavbar from '@/components/pages/custom-navbar';
+import useAuthRedirect from '@/hooks/authRedirect';
 
 const Create = () => {
+  useAuthRedirect()
   const router = useRouter()
   
   const {comments, addComment} = useComments()
@@ -88,4 +91,4 @@ const Create = () => {
   );
 }
 
-export default Create;
+export default CustomNavbar(Create);

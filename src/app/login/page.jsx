@@ -33,6 +33,7 @@ export default function Login() {
     }
 
     if (!emailValidationError && !passwordValidationError) {
+      localStorage.setItem('username', email.split('@')[0]);
       router.push('/');
     }
   };
