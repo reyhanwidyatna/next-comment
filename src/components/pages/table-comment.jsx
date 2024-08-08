@@ -33,7 +33,7 @@ const CommentsTable = ({ data }) => {
         className="btn btn-danger"
         onClick={() => handleDelete(item.id)}
       >
-        <i className="fas fa-trash"></i>
+        <i className="pi pi-trash"></i>
       </button>
     );
   };
@@ -43,7 +43,7 @@ const CommentsTable = ({ data }) => {
       <p className="text-xl text-900 font-bold mb-0">
         Data Komentar
       </p>
-      <Link href='/create'>
+      <Link href="/create">
         <button type="button" className="btn btn-primary">
           Tambah
         </button>
@@ -77,10 +77,10 @@ const CommentsTable = ({ data }) => {
         rows={5}
         rowsPerPageOptions={[5, 10, 25, 50]}
       >
-        <Column field="name" header="Name"></Column>
+        <Column field="name" header="Nama"></Column>
         <Column field="email" header="Email"></Column>
-        <Column field="body" header="Comment"></Column>
-        <Column body={actionTemplate} header="Actions"></Column>
+        <Column field="body" header="Komentar"></Column>
+        <Column body={actionTemplate} header="Aksi"></Column>
       </DataTable>
     </div>
   );

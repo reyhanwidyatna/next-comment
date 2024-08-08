@@ -1,48 +1,88 @@
-"use client"; // Marking this file as a Client Component
+"use client";
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { validateEmail, validatePassword } from '@/utils/validators';
+
+import Image from 'next/image';
 
 export default function Login() {
-  const [username, setUsername] = useState('');
+  const router = useRouter();
+
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!username || !password) {
-      setError('Field is required');
+
+    const emailValidationError = validateEmail(email);
+    const passwordValidationError = validatePassword(password);
+
+    if (emailValidationError) {
+      setEmailError(emailValidationError);
     } else {
-      setError('');
-      // Redirect to dashboard
-      window.location.href = '/dashboard';
+      setEmailError('');
+    }
+
+    if (passwordValidationError) {
+      setPasswordError(passwordValidationError);
+    } else {
+      setPasswordError('');
+    }
+
+    if (!emailValidationError && !passwordValidationError) {
+      router.push('/');
     }
   };
 
   return (
-    <div className="container mt-5">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Username</label>
-          <input
-            type="text"
-            className="form-control"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-6 col-lg-4">
+          <div className="text-center mt-8">
+            <Image
+              className="mx-auto"
+              src="/logo-app.jpg"
+              width={180}
+              height={180}
+              alt="App Logo"
+            />
+            <h2>Comment App</h2>
+          </div>
+          <div className="card p-4 bg-light bg-gradient mt-4">
+            <h4 className="text-center mb-5">
+              Login
+            </h4>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group mb-3">
+                <label>Email</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                {emailError && <p className="text-danger mt-1">{emailError}</p>}
+              </div>
+              <div className="form-group mb-3">
+                <label>Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                {passwordError && <p className="text-danger mt-1">{passwordError}</p>}
+              </div>
+              <button type="submit" className="btn btn-primary w-full mt-5">
+                Login
+              </button>
+            </form>
+          </div>
         </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input
-            type="password"
-            className="form-control"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        {error && <p className="text-danger">{error}</p>}
-        <button type="submit" className="btn btn-primary">Login</button>
-      </form>
+      </div>
     </div>
   );
 }
