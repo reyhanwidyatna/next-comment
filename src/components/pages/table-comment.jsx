@@ -1,30 +1,44 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import Link from 'next/link';
+import { useComments } from '@/context/commentContext';
 
 const CommentsTable = ({ data }) => {
-  const [comments, setComments] = useState(data);
-  const [initialComment] = useState(data);
+  const {comments, setComments, removeComment} = useComments();
+  const [stateComments, setStateComments] = useState(comments || data);
+
+  useEffect(() => {
+    const storedComments = localStorage.getItem('comments');
+    if (storedComments) {
+      setComments(JSON.parse(storedComments));
+    } else {
+      setComments(data);
+    }
+  }, [data, setComments]);
+
+  useEffect(() => {
+    setStateComments(comments);
+  }, [comments]);
 
   const handleSearch = (e) => {
     const search = e.target.value;
     if (search === '') {
-      setComments(initialComment);
+      setStateComments(comments || data);
     } else {
-      const searchedData = initialComment.filter((comment) =>
+      const searchedData = (comments || data).filter((comment) =>
         comment.name.toLowerCase().includes(search.toLowerCase()) ||
         comment.email.toLowerCase().includes(search.toLowerCase()) ||
         comment.body.toLowerCase().includes(search.toLowerCase())
       );
-      setComments(searchedData);
+      setStateComments(searchedData);
     }
   }
 
   const handleDelete = (id) => {
-    setComments((prevComments) => prevComments.filter(comment => comment.id !== id));
+    removeComment(id);
   };
 
   const actionTemplate = (item) => {
@@ -53,7 +67,7 @@ const CommentsTable = ({ data }) => {
   const footer = `Total Data: ${comments ? comments.length : 0} komentar`;
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full px-4">
       <div className="flex justify-end items-center gap-4 my-4"> 
         <div className="w-1/4">
           <div className="input-group">
@@ -69,7 +83,7 @@ const CommentsTable = ({ data }) => {
         </div>
       </div>
       <DataTable
-        value={comments}
+        value={stateComments}
         header={header}
         footer={footer}
         stripedRows

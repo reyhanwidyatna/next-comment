@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { validateEmail, validatePassword } from '@/utils/validators';
+import { validateEmail, validateField } from '@/utils/validators';
 
 import Image from 'next/image';
 
@@ -17,8 +17,8 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const emailValidationError = validateEmail(email);
-    const passwordValidationError = validatePassword(password);
+    const emailValidationError = validateField(email, 'Email') || validateEmail(email);
+    const passwordValidationError = validateField(password, 'Password');
 
     if (emailValidationError) {
       setEmailError(emailValidationError);
@@ -41,7 +41,7 @@ export default function Login() {
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-12 col-md-6 col-lg-4">
-          <div className="text-center mt-8">
+          <div className="text-center mt-5">
             <Image
               className="mx-auto"
               src="/logo-app.jpg"
