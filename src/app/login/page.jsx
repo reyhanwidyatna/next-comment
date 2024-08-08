@@ -2,28 +2,28 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { validateEmail, validateField } from '@/utils/validators';
+import { validateField } from '@/utils/validators';
 
 import Image from 'next/image';
 
 export default function Login() {
   const router = useRouter();
 
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const emailValidationError = validateField(email, 'Email') || validateEmail(email);
+    const usernameValidationError = validateField(username, 'Username');
     const passwordValidationError = validateField(password, 'Password');
 
-    if (emailValidationError) {
-      setEmailError(emailValidationError);
+    if (usernameValidationError) {
+      setUsernameError(usernameValidationError);
     } else {
-      setEmailError('');
+      setUsernameError('');
     }
 
     if (passwordValidationError) {
@@ -32,8 +32,8 @@ export default function Login() {
       setPasswordError('');
     }
 
-    if (!emailValidationError && !passwordValidationError) {
-      localStorage.setItem('username', email.split('@')[0]);
+    if (!usernameValidationError && !passwordValidationError) {
+      localStorage.setItem('username', username);
       router.push('/');
     }
   };
@@ -58,14 +58,14 @@ export default function Login() {
             </h4>
             <form onSubmit={handleSubmit}>
               <div className="form-group mb-3">
-                <label>Email</label>
+                <label>Username</label>
                 <input
                   type="text"
                   className="form-control"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
-                {emailError && <p className="text-danger mt-1">{emailError}</p>}
+                {usernameError && <p className="text-danger mt-1">{usernameError}</p>}
               </div>
               <div className="form-group mb-3">
                 <label>Password</label>

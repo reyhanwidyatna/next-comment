@@ -43,9 +43,18 @@ const Create = () => {
     }
   };
 
+  const backToDashboard = () => {
+    router.push('/')
+  }
+
   return (
     <div className="w-full h-full">
-      <h2 className="text-center my-6">
+      <div className="p-4 ">
+        <span className="cursor-pointer text-lg text-primary font-semibold" onClick={backToDashboard}>
+          Kembali
+        </span>
+      </div>
+      <h2 className="text-center mb-6">
         Buat Komentar Baru
       </h2>
       <div className="flex justify-content-center px-4">

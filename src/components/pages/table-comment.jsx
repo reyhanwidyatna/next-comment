@@ -67,7 +67,7 @@ const CommentsTable = ({ data }) => {
       </Link>
     </div>
   );
-  const footer = `Total Data: ${comments ? comments.length : 0} komentar`;
+  const footer = `Total Data: ${stateComments ? stateComments.length : 0} komentar`;
 
   return (
     <div className="w-full h-full px-4">
