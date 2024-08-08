@@ -26,18 +26,18 @@ const Navbar = () => {
     <nav className="bg-primary text-white p-4 flex items-center justify-between">
       <div className="flex items-center">
         <div className="flex items-center space-x-2 cursor-pointer" onClick={handleLogo}>
-          <span className="text-2xl text-uppercase font-bold fst-italic">
+          <span className="text-md md:text-2xl lg:text-2xl text-uppercase font-bold fst-italic">
             Comment App
           </span>
         </div>
       </div>
-      <div className="flex items-center space-x-8">
-        <span className="text-lg font-semibold">
+      <div className="flex items-center space-x-2 md:space-x-8">
+        <span className="text-md md:text-lg font-semibold">
           Hello, {username || 'Anonymous'}
         </span>
         <button 
           onClick={handleLogout} 
-          className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded"
+          className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded"
         >
           <i className="pi pi-sign-out"></i>
         </button>

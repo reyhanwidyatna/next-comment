@@ -72,7 +72,7 @@ const CommentsTable = ({ data }) => {
   return (
     <div className="w-full h-full px-4">
       <div className="flex justify-end items-center gap-4 my-4"> 
-        <div className="w-1/4">
+        <div className="col-12 col-md-3 col-lg-3 p-0">
           <div className="input-group">
             <input
               type="text"
